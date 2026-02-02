@@ -1,0 +1,73 @@
+#EXERCICE 1
+
+iris
+class(iris)
+View(iris)
+nrow(iris)
+ncol(iris)
+colnames(iris)
+summary(iris)
+iris[ , c("Sepal.Length","Species")]
+iris[ c(100,103,105) , ]
+iris[ 50:100 , ]
+mean(iris$Sepal.Length)
+median(iris$Sepal.Length)
+sd(iris$Petal.Length)
+quantile(iris$Petal.Width, probs = seq(from = 0.1, to = 0.9, by =0.1))
+
+#EXERCICE 2
+
+dfManga <- read.csv("C:/Users/acuminatto/Downloads/manga.csv", header = TRUE, sep = ",", dec = ".")
+dfAnime <- read.csv("C:/Users/acuminatto/Downloads/anime.csv", header = TRUE, sep = ",", dec = ".")
+View(dfManga)
+#puis
+View(dfAnime)
+dim(dfManga)
+dim(dfAnime) 
+mean(dfManga$Score)
+mean(dfAnime$Score)
+sum(dfManga$Vote)
+sum(dfAnime$Vote)
+sd(dfManga$Score)
+sd(dfAnime$Score)
+quantile(dfAnime$Score, probs = seq(from = 0.1, to = 0.9, by = 0.1))
+# filtre sur les mangas
+extraction1 <- subset(dfManga, Score > 9)
+View(extraction1)
+nrow(extraction1)
+extraction2 = subset(dfManga, Vote >= 200000)
+View(extraction2)
+nrow(extraction2)
+extraction3 = subset(dfManga, Score >= 7 & Score <= 8)
+View(extraction3)
+nrow(extraction3)
+#filtre sur les animes
+effectifRating = table(dfAnime$Rating)
+print(effectifRating)
+length(effectifRating)
+prop.table(effectifRating)*100
+extraction4 = subset(dfAnime, Rating == "R - 17+ (violence & profanity)")
+View(extraction4)
+nrow(extraction4)
+extraction5 = subset(dfAnime, Rating == "R - 17+ (violence & profanity)" & Score >= 8)
+View(extraction5)
+nrow(extraction5)
+extraction6 = subset(dfAnime, Rating != "R - 17+ (violence & profanity)")
+View(extraction6)
+nrow(extraction6)
+extraction7 <- subset(dfAnime, Rating == "PG - Children" | (Rating == "G - All Ages"))
+View(extraction7)
+nrow(extraction7)
+extraction8 <- subset(dfAnime, Rating != "PG - Children" & (Rating != "G - All Ages"))
+View(extraction8)
+nrow(extraction8)
+extraction9 <- subset(dfAnime, Score >= 9 | (Vote >= 400000))
+View(extraction9)
+nrow(extraction9)
+#Crétion nouveau data frame
+dfAnime = dfAnime[ , c("Title","Score","Vote","Ranked")]
+dfManga = dfManga[ , c("Title","Score","Vote","Ranked")]
+dfAnime$Type = "Anime"
+dfManga$Type = "Manga"
+dfConcat = rbind(dfManga,dfAnime)
+View(dfConcat)
